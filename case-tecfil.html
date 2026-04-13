@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Case TECFIL | Maven AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.cdnfonts.com/css/neue-montreal" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                "colors": {
+                    "accent": "#1d90c9",
+                    "accent-dark": "#1a7fb3",
+                    "on-primary-container": "#f8f7ff",
+                    "outline": "#727687",
+                    "surface-container": "#eceef0",
+                    "surface-container-low": "#f2f4f6",
+                    "primary": "#0050cb",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e6e8ea",
+                    "on-surface": "#191c1e",
+                    "outline-variant": "#c2c6d8",
+                    "error": "#ba1a1a",
+                    "tertiary": "#4e5a6f",
+                    "on-primary": "#ffffff",
+                    "surface": "#f7f9fb",
+                    "secondary-container": "#d0e1f9",
+                    "on-surface-variant": "#424656",
+                    "primary-container": "#0066ff",
+                    "surface-tint": "#0054d6",
+                    "secondary": "#506074",
+                    "surface-dim": "#d8dadc",
+                    "surface-variant": "#e0e3e5",
+                    "inverse-primary": "#b3c5ff",
+                    "inverse-surface": "#2d3133",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-background": "#191c1e",
+                    "primary-fixed": "#dae1ff",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "background": "#f7f9fb"
+                },
+                "borderRadius": {
+                    "sm": "4px",
+                    "DEFAULT": "8px",
+                    "md": "16px",
+                    "lg": "20px",
+                    "xl": "22px",
+                    "2xl": "22px",
+                    "full": "9999px"
+                },
+                "fontFamily": {
+                    "accent": ["'Instrument Serif'", "serif"],
+                    "body": ["'Neue Montreal'", "Inter", "sans-serif"],
+                    "label": ["'Neue Montreal'", "Inter", "sans-serif"],
+                    "mono": ["JetBrains Mono", "monospace"]
+                }
+            },
+        },
+    }
+</script>
+<style>
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.revealed {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .lead-overlay { opacity:0; pointer-events:none; transition:opacity .35s cubic-bezier(.16,1,.3,1); }
+    .lead-overlay.open { opacity:1; pointer-events:auto; }
+    .lead-overlay .lead-panel { transform:translateY(32px); transition:transform .4s cubic-bezier(.16,1,.3,1); }
+    .lead-overlay.open .lead-panel { transform:translateY(0); }
+    .lead-input,.lead-textarea { width:100%; padding:14px 18px; border:1px solid #c2c6d8; border-radius:12px; font-family:'Neue Montreal',Inter,sans-serif; font-size:15px; color:#191c1e; background:#fff; outline:none; transition:border-color .2s,box-shadow .2s; }
+    .lead-input:focus,.lead-textarea:focus,.lead-select:focus { border-color:#1d90c9; box-shadow:0 0 0 3px rgba(29,144,201,.12); }
+    .lead-input::placeholder,.lead-textarea::placeholder { color:#727687; }
+    .lead-textarea { resize:vertical; min-height:110px; }
+    .lead-select { width:100%; padding:14px 18px; border:1px solid #c2c6d8; border-radius:12px; font-family:'Neue Montreal',Inter,sans-serif; font-size:15px; color:#191c1e; background:#fff; outline:none; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%23727687'%3E%3Cpath d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:44px; transition:border-color .2s,box-shadow .2s; }
+</style>
+</head>
+<body class="bg-white font-body text-on-surface antialiased selection:bg-primary-container selection:text-white">
+
+<!-- Nav -->
+<nav class="fixed top-0 z-50 w-full bg-white/92 backdrop-blur-xl border-b border-slate-200/40">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-6 md:px-8 h-20">
+<a href="index.html" class="flex items-center gap-2.5">
+<img src="minilogo-maven.png" alt="Maven AI" class="h-8 w-auto"/>
+<span class="text-xl font-body font-normal tracking-tighter text-on-surface">Maven AI</span>
+</a>
+<a href="index.html#cases" class="group inline-flex items-center gap-2 text-on-surface-variant hover:text-accent transition-colors duration-300 text-sm font-medium">
+<span class="material-symbols-outlined text-lg transition-transform group-hover:-translate-x-1">arrow_back</span>
+Voltar aos cases
+</a>
+</div>
+</nav>
+
+<!-- Hero -->
+<section class="bg-white pt-36 md:pt-44 pb-16 md:pb-20">
+<div class="max-w-5xl mx-auto px-6 md:px-8">
+<div class="reveal flex items-center gap-3 mb-8">
+<span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent/10 text-accent text-base font-mono">
+<span class="material-symbols-outlined text-xl">deployed_code</span>
+</span>
+<span class="text-base font-mono tracking-[0.15em] uppercase text-on-surface-variant">Case de Sucesso</span>
+</div>
+<h1 class="reveal reveal-delay-1 text-6xl md:text-7xl lg:text-8xl font-body font-medium text-on-surface tracking-tight leading-[1.05] mb-6">TECFIL</h1>
+<p class="reveal reveal-delay-2 text-2xl md:text-3xl lg:text-4xl font-accent italic text-accent leading-snug mb-6 max-w-3xl">
+Como a TECFIL reduziu o tempo de consulta de informações em 90%
+</p>
+<p class="reveal reveal-delay-3 text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-3xl mb-16">
+Com o uso de um chatbot de recuperação de informações (RAG), a empresa otimizou o processo de vendas e melhorou a eficiência operacional em apenas 3 meses.
+</p>
+<!-- Metrics -->
+<div class="reveal reveal-delay-4 grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl">
+<div class="border-l-[3px] border-accent pl-6 py-2">
+<span class="text-4xl md:text-5xl font-body font-medium text-accent leading-none">+200h</span>
+<p class="text-base text-on-surface-variant mt-2">Economia mensal em trabalho manual</p>
+</div>
+<div class="border-l-[3px] border-accent pl-6 py-2">
+<span class="text-4xl md:text-5xl font-body font-medium text-accent leading-none">35%</span>
+<p class="text-base text-on-surface-variant mt-2">Redução no tempo médio de atendimento</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Case Image -->
+<section class="reveal bg-white pb-16 md:pb-24">
+<div class="max-w-5xl mx-auto px-6 md:px-8">
+<div class="aspect-[21/9] rounded-[26px] overflow-hidden">
+<img alt="Case TECFIL" class="w-full h-full object-cover" src="freepik_ultraphotorealistic-edito_2776243301.png"/>
+</div>
+</div>
+</section>
+
+<!-- Content -->
+<section class="bg-white pb-20 md:pb-28">
+<div class="max-w-3xl mx-auto px-6 md:px-8">
+
+<!-- A empresa -->
+<div class="reveal mb-20">
+<div class="flex items-center gap-3 mb-8">
+<span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent/10 text-accent text-sm font-mono font-medium">1</span>
+<h2 class="text-sm font-mono tracking-[0.15em] uppercase text-on-surface-variant">A empresa</h2>
+</div>
+<p class="text-lg md:text-xl text-on-surface-variant leading-relaxed">
+A TECFIL é uma fabricante líder no setor automotivo, especializada na produção de filtros de ar. Oferecendo uma ampla gama de produtos, a empresa busca constantemente melhorar sua eficiência e atendimento ao cliente.
+</p>
+</div>
+
+<!-- O desafio -->
+<div class="reveal mb-20">
+<div class="flex items-center gap-3 mb-8">
+<span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent/10 text-accent text-sm font-mono font-medium">2</span>
+<h2 class="text-sm font-mono tracking-[0.15em] uppercase text-on-surface-variant">O desafio</h2>
+</div>
+<p class="text-lg md:text-xl text-on-surface-variant leading-relaxed">
+A TECFIL enfrentava uma situação desafiadora: seus agentes de vendas tinham que consultar múltiplas planilhas com até 15 mil linhas para encontrar informações sobre os produtos, como filtros de ar, seus preços e especificações técnicas. Esse processo lento e ineficiente impactava negativamente a produtividade e a satisfação dos clientes.
+</p>
+</div>
+
+<!-- A solução -->
+<div class="reveal mb-20">
+<div class="flex items-center gap-3 mb-8">
+<span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent/10 text-accent text-sm font-mono font-medium">3</span>
+<h2 class="text-sm font-mono tracking-[0.15em] uppercase text-on-surface-variant">A solução</h2>
+</div>
+<p class="text-lg md:text-xl text-on-surface-variant leading-relaxed mb-8">
+Implementamos um chatbot de recuperação de informações (RAG), que:
+</p>
+<ul class="space-y-5">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-accent mt-0.5 shrink-0">check_circle</span>
+<span class="text-base md:text-lg text-on-surface-variant leading-relaxed">Forneceu respostas instantâneas sobre disponibilidade de produtos, preços e especificações técnicas.</span>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-accent mt-0.5 shrink-0">check_circle</span>
+<span class="text-base md:text-lg text-on-surface-variant leading-relaxed">Eliminou a necessidade de buscas manuais, permitindo que os agentes de vendas encontrassem rapidamente as informações necessárias.</span>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-accent mt-0.5 shrink-0">check_circle</span>
+<span class="text-base md:text-lg text-on-surface-variant leading-relaxed">Aprimorou a experiência do cliente com um atendimento mais eficiente e ágil.</span>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-accent mt-0.5 shrink-0">check_circle</span>
+<span class="text-base md:text-lg text-on-surface-variant leading-relaxed">Centralizou todas as informações em uma base de dados unificada e acessível.</span>
+</li>
+</ul>
+</div>
+
+<!-- Os resultados -->
+<div class="reveal">
+<div class="flex items-center gap-3 mb-8">
+<span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent/10 text-accent text-sm font-mono font-medium">4</span>
+<h2 class="text-sm font-mono tracking-[0.15em] uppercase text-on-surface-variant">Os resultados</h2>
+</div>
+<p class="text-lg md:text-xl text-on-surface-variant leading-relaxed mb-8">
+Com a implementação do chatbot de recuperação de informações, a TECFIL obteve resultados impressionantes:
+</p>
+<div class="space-y-6">
+<div class="bg-accent/[0.04] border border-accent/10 rounded-[22px] p-6 md:p-8">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-accent text-2xl mt-0.5 shrink-0">speed</span>
+<p class="text-base md:text-lg text-on-surface leading-relaxed">Aceleração na velocidade de resposta, que possibilitou uma interação mais dinâmica com os clientes, resultando em um atendimento ágil e eficaz.</p>
+</div>
+</div>
+<div class="bg-accent/[0.04] border border-accent/10 rounded-[22px] p-6 md:p-8">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-accent text-2xl mt-0.5 shrink-0">thumb_up</span>
+<p class="text-base md:text-lg text-on-surface leading-relaxed">Feedback positivo dos clientes, demonstrado em avaliações favoráveis e uma maior lealdade, consolidando ainda mais a reputação da empresa no mercado.</p>
+</div>
+</div>
+<div class="bg-accent/[0.04] border border-accent/10 rounded-[22px] p-6 md:p-8">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-accent text-2xl mt-0.5 shrink-0">schedule</span>
+<p class="text-base md:text-lg text-on-surface leading-relaxed">Ganho de centenas de horas mensais, permitindo que a equipe se direcionasse a projetos de maior impacto e inovação dentro da empresa.</p>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- CTA -->
+<section class="bg-surface py-20 md:py-28">
+<div class="max-w-3xl mx-auto px-6 md:px-8 text-center">
+<h2 class="reveal text-3xl md:text-4xl lg:text-5xl font-body font-normal text-on-surface leading-snug mb-6">
+Quer resultados <span class="font-accent italic text-accent">similares?</span>
+</h2>
+<p class="reveal reveal-delay-1 text-lg md:text-xl text-on-surface-variant mb-10">Agende uma consultoria gratuita de IA com um dos nossos especialistas e transforme seus processos.</p>
+<a href="javascript:void(0)" onclick="openLeadForm()" class="reveal reveal-delay-2 group inline-flex items-center gap-3 bg-accent text-white px-8 py-4 rounded-full text-base font-medium hover:bg-accent-dark hover:scale-[1.02] transition-all duration-300">
+Quero resultados assim
+<span class="material-symbols-outlined text-xl transition-transform group-hover:translate-x-1">arrow_forward</span>
+</a>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-white border-t border-outline-variant/30 py-8">
+<div class="max-w-7xl mx-auto px-6 md:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+<a href="index.html" class="inline-flex items-center gap-2.5">
+<img src="minilogo-maven.png" alt="Maven AI" class="h-7 w-auto"/>
+<span class="text-lg font-body font-normal text-on-surface tracking-tight">Maven AI</span>
+</a>
+<p class="text-on-surface-variant text-sm">&copy; 2026 Maven AI Solutions. All rights reserved.</p>
+</div>
+</footer>
+
+<script>
+(function() {
+    var reveals = document.querySelectorAll('.reveal');
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function(el) { observer.observe(el); });
+})();
+</script>
+<div id="lead-overlay" class="lead-overlay fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm px-4" onclick="if(event.target===this)closeLeadForm()">
+<div class="lead-panel bg-white rounded-[26px] w-full max-w-xl max-h-[92vh] overflow-y-auto shadow-2xl relative">
+<button onclick="closeLeadForm()" class="absolute top-5 right-5 z-10 w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-2xl">close</span></button>
+<div class="px-8 pt-10 pb-6 border-b border-outline-variant/30">
+<div class="flex items-center gap-2.5 mb-6"><img src="minilogo-maven.png" alt="Maven AI" class="h-8 w-auto"/><span class="text-xl font-body font-normal tracking-tighter text-on-surface">Maven AI</span></div>
+<h2 class="text-2xl md:text-3xl font-body font-normal text-on-surface leading-snug">Agende uma Consultoria <span class="font-accent italic text-accent">Gratuita de IA.</span></h2>
+</div>
+<form id="lead-form" class="px-8 py-8 space-y-5" onsubmit="return handleLeadSubmit(event)">
+<div><label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Nome</label><input type="text" name="nome" class="lead-input" placeholder="Seu nome completo" required/></div>
+<div><label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Nome da Empresa</label><input type="text" name="empresa" class="lead-input" placeholder="Ex: Acme Corp" required/></div>
+<div><label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Cargo na Empresa</label><input type="text" name="cargo" class="lead-input" placeholder="Ex: CEO, Diretor de Vendas" required/></div>
+<div><label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Website da Empresa</label><input type="url" name="website" class="lead-input" placeholder="URL do site, LinkedIn ou Instagram" required/></div>
+<div><label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Faturamento Mensal</label><select name="faturamento" class="lead-select" required><option value="" disabled selected>Selecione uma faixa</option><option value="0-50k">R$ 0 — R$ 50 mil</option><option value="50-100k">R$ 50 mil — R$ 100 mil</option><option value="100-200k">R$ 100 mil — R$ 200 mil</option><option value="200-500k">R$ 200 mil — R$ 500 mil</option><option value="500k+">R$ 500 mil +</option></select></div>
+<div><label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Descreva o Projeto</label><textarea name="projeto" class="lead-textarea" placeholder="Conte-nos sobre o projeto que você tem em mente..." required></textarea></div>
+<button type="submit" class="w-full bg-accent text-white py-4 rounded-full text-base font-medium hover:bg-accent-dark hover:scale-[1.01] transition-all duration-300 flex items-center justify-center gap-2 mt-2">Agendar Consultoria <span class="material-symbols-outlined text-xl">arrow_forward</span></button>
+<p class="text-xs text-on-surface-variant text-center pt-1">Responderemos em até 24 horas.</p>
+</form>
+<div id="lead-success" class="hidden px-8 py-16 text-center">
+<span class="material-symbols-outlined text-accent text-6xl mb-6">check_circle</span>
+<h3 class="text-2xl font-body font-medium text-on-surface mb-3">Recebemos sua mensagem!</h3>
+<p class="text-base text-on-surface-variant mb-8">Entraremos em contato em até 24 horas para agendar sua consultoria.</p>
+<button onclick="closeLeadForm()" class="inline-flex items-center gap-2 text-accent font-medium hover:underline">Voltar ao site <span class="material-symbols-outlined text-lg">arrow_forward</span></button>
+</div>
+</div>
+</div>
+<script>
+function openLeadForm(){document.getElementById('lead-overlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeLeadForm(){document.getElementById('lead-overlay').classList.remove('open');document.body.style.overflow='';setTimeout(function(){document.getElementById('lead-form').classList.remove('hidden');document.getElementById('lead-form').reset();document.getElementById('lead-success').classList.add('hidden');},400);}
+function handleLeadSubmit(e){e.preventDefault();document.getElementById('lead-form').classList.add('hidden');document.getElementById('lead-success').classList.remove('hidden');return false;}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLeadForm();});
+</script>
+</body>
+</html>

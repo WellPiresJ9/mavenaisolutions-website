@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Maven AI | Engineering Intelligent Systems</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.cdnfonts.com/css/neue-montreal" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "accent": "#1d90c9",
+                        "accent-dark": "#1a7fb3",
+                        "on-primary-container": "#f8f7ff",
+                        "outline": "#727687",
+                        "surface-container": "#eceef0",
+                        "surface-container-low": "#f2f4f6",
+                        "primary": "#0050cb",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#3c475b",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e6e8ea",
+                        "secondary-fixed-dim": "#b7c8df",
+                        "on-secondary-fixed": "#0b1d2e",
+                        "on-primary-fixed": "#001849",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-bright": "#f7f9fb",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "outline-variant": "#c2c6d8",
+                        "error": "#ba1a1a",
+                        "tertiary": "#4e5a6f",
+                        "on-primary": "#ffffff",
+                        "surface": "#f7f9fb",
+                        "secondary-container": "#d0e1f9",
+                        "on-surface-variant": "#424656",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "primary-container": "#0066ff",
+                        "surface-tint": "#0054d6",
+                        "tertiary-fixed": "#d7e3fc",
+                        "secondary": "#506074",
+                        "surface-dim": "#d8dadc",
+                        "on-tertiary-container": "#f7f7ff",
+                        "surface-variant": "#e0e3e5",
+                        "inverse-primary": "#b3c5ff",
+                        "on-secondary-container": "#546478",
+                        "inverse-surface": "#2d3133",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-secondary-fixed-variant": "#38485b",
+                        "tertiary-fixed-dim": "#bbc7df",
+                        "on-background": "#191c1e",
+                        "primary-fixed": "#dae1ff",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "secondary-fixed": "#d3e4fc",
+                        "tertiary-container": "#677288",
+                        "on-tertiary-fixed": "#101c2e",
+                        "background": "#f7f9fb"
+                    },
+                    "borderRadius": {
+                        "sm": "4px",
+                        "DEFAULT": "8px",
+                        "md": "16px",
+                        "lg": "20px",
+                        "xl": "22px",
+                        "2xl": "22px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "accent": ["'Instrument Serif'", "serif"],
+                        "body": ["'Neue Montreal'", "Inter", "sans-serif"],
+                        "label": ["'Neue Montreal'", "Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: none;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .nav-transparent {
+            background: transparent;
+            backdrop-filter: none;
+            border-bottom: 1px solid transparent;
+        }
+        .nav-solid {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.4);
+        }
+        .accent-glow {
+            position: relative;
+            color: #7dd3fc !important;
+            text-shadow:
+                0 0 20px rgba(125,211,252,0.50),
+                0 0 50px rgba(56,189,248,0.30),
+                0 0 90px rgba(29,144,201,0.20),
+                0 2px 16px rgba(0,0,0,0.25);
+        }
+        .accent-glow::before {
+            content: '';
+            position: absolute;
+            inset: -35% -25%;
+            background: radial-gradient(ellipse 75% 85% at 50% 55%, rgba(56,189,248,0.22) 0%, rgba(29,144,201,0.08) 45%, transparent 72%);
+            z-index: -1;
+            filter: blur(30px);
+            pointer-events: none;
+        }
+        .project-tab-active {
+            background: linear-gradient(160deg, #1d90c9 0%, #1a7fb3 55%, rgba(29,144,201,0.72) 100%) !important;
+            border-color: transparent !important;
+            box-shadow: 0 4px 20px rgba(29,144,201,0.25);
+        }
+        .project-tab-active h4 {
+            color: #ffffff !important;
+        }
+        .badge-active {
+            background: linear-gradient(90deg, rgba(0,80,203,0.88) 0%, #1d90c9 50%, rgba(29,144,201,0.7) 100%) !important;
+            border-color: transparent !important;
+            color: #ffffff !important;
+        }
+        /* Lead Form Modal */
+        .lead-overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .lead-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .lead-overlay .lead-panel {
+            transform: translateY(32px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .lead-overlay.open .lead-panel {
+            transform: translateY(0);
+        }
+        .lead-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #c2c6d8;
+            border-radius: 12px;
+            font-family: 'Neue Montreal', Inter, sans-serif;
+            font-size: 15px;
+            color: #191c1e;
+            background: #ffffff;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .lead-input:focus {
+            border-color: #1d90c9;
+            box-shadow: 0 0 0 3px rgba(29,144,201,0.12);
+        }
+        .lead-input::placeholder {
+            color: #727687;
+        }
+        .lead-select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #c2c6d8;
+            border-radius: 12px;
+            font-family: 'Neue Montreal', Inter, sans-serif;
+            font-size: 15px;
+            color: #191c1e;
+            background: #ffffff;
+            outline: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%23727687'%3E%3Cpath d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 44px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .lead-select:focus {
+            border-color: #1d90c9;
+            box-shadow: 0 0 0 3px rgba(29,144,201,0.12);
+        }
+        .lead-textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #c2c6d8;
+            border-radius: 12px;
+            font-family: 'Neue Montreal', Inter, sans-serif;
+            font-size: 15px;
+            color: #191c1e;
+            background: #ffffff;
+            outline: none;
+            resize: vertical;
+            min-height: 110px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .lead-textarea:focus {
+            border-color: #1d90c9;
+            box-shadow: 0 0 0 3px rgba(29,144,201,0.12);
+        }
+        .lead-textarea::placeholder {
+            color: #727687;
+        }
+    </style>
+</head>
+<body class="bg-white font-body text-on-surface antialiased selection:bg-primary-container selection:text-white">
+<!-- TopNavBar -->
+<nav id="main-nav" class="fixed top-0 z-50 w-full nav-transparent transition-all duration-300">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-8 h-20">
+<a id="nav-logo" href="#" class="flex items-center gap-2.5 transition-all duration-300">
+<img src="minilogo-maven.png" alt="Maven AI" class="h-8 w-auto drop-shadow-sm"/>
+<span class="text-xl font-body font-normal tracking-tighter text-white transition-colors duration-300">Maven AI</span>
+</a>
+<div id="nav-links" class="hidden md:flex items-center gap-x-10">
+<a class="nav-link text-white/70 font-body font-medium hover:text-white transition-colors duration-300" href="#solucoes">Soluções</a>
+<a class="nav-link text-white/70 font-body font-medium hover:text-white transition-colors duration-300" href="#metodologia">Metodologia</a>
+<a class="nav-link text-white/70 font-body font-medium hover:text-white transition-colors duration-300" href="#cases">Cases</a>
+</div>
+<div class="flex items-center gap-6">
+<button id="nav-cta" onclick="openLeadForm()" class="bg-white/15 backdrop-blur-md border border-white/30 text-white px-6 py-2.5 rounded-full font-medium text-sm hover:bg-white/25 transition-all duration-300">
+                    Falar com Especialista
+                </button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative min-h-screen flex items-end justify-center overflow-hidden bg-black">
+<div class="absolute inset-0 z-0">
+<video autoplay muted loop playsinline class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover opacity-70">
+<source src="https://pub-587104ef32f841ca882761c940675246.r2.dev/freepik_cinematic-15second-shot-u_2775954141.mp4" type="video/mp4"/>
+</video>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-5xl mx-auto px-8 text-center pb-28 md:pb-36">
+<h1 class="text-4xl md:text-6xl font-body font-normal tracking-tight text-white leading-[1.10] mb-10" style="text-shadow: 0 2px 20px rgba(0,0,0,0.3);">
+                Operações criadas por humanos, <br/>
+<span class="font-accent italic font-normal text-accent accent-glow">impulsionadas por IA.</span>
+</h1>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+<button onclick="openLeadForm()" class="w-full sm:w-auto bg-white/15 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-full text-base font-medium hover:bg-white/25 hover:scale-[1.02] transition-all flex items-center justify-center gap-3 group">
+                    Quero minha consultoria gratuita
+                    <span class="material-symbols-outlined text-xl transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+<a href="#cases" class="w-full sm:w-auto bg-transparent border border-white/30 px-8 py-4 rounded-full text-base font-medium text-white hover:bg-white/10 hover:scale-[1.02] transition-all inline-flex items-center justify-center">
+                    Ver cases
+                </a>
+</div>
+</div>
+</header>
+<!-- Introducing Maven AI Section -->
+<section class="bg-white py-24 md:py-32">
+<div class="max-w-7xl mx-auto px-6 md:px-8">
+<div class="reveal flex items-center gap-3 mb-12">
+<span class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-outline-variant text-sm font-mono text-on-surface-variant">1</span>
+<span class="text-sm font-mono tracking-[0.15em] uppercase text-on-surface-variant">Conheça a Maven AI Solutions</span>
+</div>
+<div class="reveal reveal-delay-1 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+<div>
+<h2 class="text-4xl md:text-5xl lg:text-[3.5rem] font-body font-normal text-on-surface leading-[1.12] mb-8">
+Milhões em resultados gerados <span class="font-accent italic text-accent">(&amp; operações transformadas).</span>
+</h2>
+<p class="text-base md:text-lg text-on-surface-variant leading-relaxed mb-10">
+Well &amp; seu time já geraram milhões em resultados para empresas de todos os portes. Usamos uma stack proprietária de consultoria orientada por IA e um framework que mergulha no coração do seu negócio para resolver problemas reais e práticos — não teorias que ficam bonitas em slides, mas caminhos reais para escalar receita e eficiência.
+</p>
+<a href="javascript:void(0)" onclick="openLeadForm()" class="group inline-flex items-center gap-3 text-white text-sm font-medium bg-accent rounded-full px-7 py-3.5 hover:opacity-90 transition-all duration-300">
+Ver como a IA pode ajudar
+<span class="material-symbols-outlined text-lg transition-transform group-hover:translate-x-1">arrow_forward</span>
+</a>
+</div>
+<div>
+<div class="rounded-[22px] overflow-hidden flex items-center justify-center">
+<img alt="Maven AI Solutions" src="logo-maven.png" class="w-full h-auto"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Projetos Section -->
+<section id="solucoes" class="bg-surface py-24 md:py-32">
+<div class="max-w-7xl mx-auto px-6 md:px-8">
+<div class="reveal flex items-center gap-3 mb-12">
+<span class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-outline-variant text-sm font-mono text-on-surface-variant">2</span>
+<span class="text-sm font-mono tracking-[0.15em] uppercase text-on-surface-variant">Alguns de nossos projetos</span>
+</div>
+<div class="reveal reveal-delay-1 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Tabs -->
+<div class="lg:col-span-3 flex flex-col gap-2.5 lg:pr-6 lg:border-r lg:border-outline-variant/30">
+<button onclick="switchProject(0)" class="project-tab project-tab-active text-left px-5 py-4 rounded-xl border-l-2 transition-all duration-300">
+<h4 class="font-body font-normal text-sm md:text-base leading-snug">Agente IA de Vendas para Ecommerce</h4>
+</button>
+<button onclick="switchProject(1)" class="project-tab text-left px-5 py-4 rounded-xl border-l-2 border-transparent hover:bg-surface-bright transition-all duration-300">
+<h4 class="font-body font-normal text-sm md:text-base text-on-surface-variant leading-snug">IA para Vender Transformadores de Energia no WhatsApp</h4>
+</button>
+<button onclick="switchProject(2)" class="project-tab text-left px-5 py-4 rounded-xl border-l-2 border-transparent hover:bg-surface-bright transition-all duration-300">
+<h4 class="font-body font-normal text-sm md:text-base text-on-surface-variant leading-snug">Estrutura de Vendas 100% Automatizada + App com IA</h4>
+</button>
+<button onclick="switchProject(3)" class="project-tab text-left px-5 py-4 rounded-xl border-l-2 border-transparent hover:bg-surface-bright transition-all duration-300">
+<h4 class="font-body font-normal text-sm md:text-base text-on-surface-variant leading-snug">Agente IA para Loja de Vinhos</h4>
+</button>
+</div>
+<!-- Vídeo + info -->
+<div class="lg:col-span-9">
+<div class="rounded-[22px] overflow-hidden aspect-video">
+<iframe id="project-video" class="w-full h-full" src="https://www.youtube.com/embed/Fl7cjXQfyRM" title="Projeto Maven AI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+<div class="mt-7 flex flex-col md:flex-row items-start justify-between gap-4">
+<div>
+<span class="text-xs font-mono tracking-[0.15em] uppercase text-accent mb-2 block" id="project-category">E-commerce</span>
+<h3 class="text-lg md:text-xl font-body font-medium text-on-surface mb-2" id="project-title">Agente IA de Vendas para Ecommerce</h3>
+<p class="text-sm md:text-base text-on-surface-variant leading-relaxed max-w-2xl" id="project-desc">Nosso agente de IA automatiza a qualificação de leads, recomenda produtos e finaliza vendas diretamente no WhatsApp. Tudo automático, aumentando a conversão em até 30%.</p>
+</div>
+<span class="badge-active shrink-0 inline-flex items-center px-4 py-1.5 rounded-full border text-xs font-mono tracking-wider uppercase mt-1 transition-all duration-300" id="project-badge">Automação verificada e em produção</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Cases Section -->
+<section id="cases" class="min-h-[80vh] md:min-h-screen flex flex-col bg-white">
+<div class="max-w-7xl mx-auto px-6 md:px-8 flex-1 flex flex-col justify-center py-20 md:py-28">
+<div class="reveal flex items-center gap-3 mb-14">
+<span class="inline-flex items-center justify-center w-10 h-10 rounded-full border border-outline-variant text-base font-mono text-on-surface-variant">3</span>
+<span class="text-base font-mono tracking-[0.15em] uppercase text-on-surface-variant">Cases de Sucesso</span>
+</div>
+<h2 class="reveal reveal-delay-1 text-5xl md:text-6xl lg:text-7xl font-body font-normal text-on-surface leading-[1.12] mb-24">
+Alguns dos nossos <span class="font-accent italic text-accent">resultados.</span>
+</h2>
+<div class="reveal reveal-delay-2 grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+<!-- Case 1: Tecfil -->
+<a href="case-tecfil.html" class="group block">
+<div class="aspect-[4/3] rounded-[26px] overflow-hidden mb-8 relative">
+<img alt="Case Tecfil" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="freepik_ultraphotorealistic-edito_2776243301.png"/>
+<span class="absolute bottom-6 left-6 inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent text-white shadow-sm group-hover:bg-accent-dark transition-colors duration-300">
+<span class="material-symbols-outlined text-xl">north_east</span>
+</span>
+</div>
+<h3 class="text-2xl md:text-3xl font-body font-medium text-on-surface mb-3">Tecfil</h3>
+<p class="text-base md:text-lg text-on-surface-variant leading-relaxed">85% de automacao de supply chain — reducao de 40% no Lead Time.</p>
+</a>
+<!-- Case 2: Wittel -->
+<a href="case-wittel.html" class="group block">
+<div class="aspect-[4/3] rounded-[26px] overflow-hidden mb-8 relative">
+<img alt="Case Wittel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="freepik_ultraphotorealistic-edito_2776244780.png"/>
+<span class="absolute bottom-6 left-6 inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent text-white shadow-sm group-hover:bg-accent-dark transition-colors duration-300">
+<span class="material-symbols-outlined text-xl">north_east</span>
+</span>
+</div>
+<h3 class="text-2xl md:text-3xl font-body font-medium text-on-surface mb-3">Wittel</h3>
+<p class="text-base md:text-lg text-on-surface-variant leading-relaxed">12x de ROI no 1o ano com suporte omnichannel autonomo.</p>
+</a>
+<!-- Case 3: Hunters Manpower -->
+<a href="case-hunters.html" class="group block">
+<div class="aspect-[4/3] rounded-[26px] overflow-hidden mb-8 relative">
+<img alt="Case Hunters" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="freepik_ultraphotorealistic-edito_2776246049.png"/>
+<span class="absolute bottom-6 left-6 inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent text-white shadow-sm group-hover:bg-accent-dark transition-colors duration-300">
+<span class="material-symbols-outlined text-xl">north_east</span>
+</span>
+</div>
+<h3 class="text-2xl md:text-3xl font-body font-medium text-on-surface mb-3">Hunters Manpower</h3>
+<p class="text-base md:text-lg text-on-surface-variant leading-relaxed">50k+ curriculos/mes processados em 3s por perfil via IA generativa.</p>
+</a>
+</div>
+</div>
+</section>
+<!-- Depoimento Section -->
+<section class="min-h-screen flex flex-col bg-surface relative overflow-hidden">
+<!-- Blue M-wave glow spanning left to right -->
+<div class="absolute inset-0 w-full h-full pointer-events-none">
+<svg class="w-full h-full" viewBox="0 0 1440 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter id="wg-outer" x="-15%" y="-50%" width="130%" height="200%"><feGaussianBlur in="SourceGraphic" stdDeviation="55"/></filter>
+<filter id="wg-inner" x="-10%" y="-40%" width="120%" height="180%"><feGaussianBlur in="SourceGraphic" stdDeviation="32"/></filter>
+</defs>
+<!-- Outer diffuse glow -->
+<path d="M-60,370 C140,370 190,160 360,160 C530,160 570,370 720,370 C870,370 910,160 1080,160 C1250,160 1300,370 1500,370" fill="none" stroke="#1d90c9" stroke-opacity="0.20" stroke-width="140" filter="url(#wg-outer)"/>
+<!-- Inner concentrated glow -->
+<path d="M-60,370 C140,370 190,160 360,160 C530,160 570,370 720,370 C870,370 910,160 1080,160 C1250,160 1300,370 1500,370" fill="none" stroke="#1d90c9" stroke-opacity="0.14" stroke-width="55" filter="url(#wg-inner)"/>
+</svg>
+</div>
+<div class="reveal max-w-3xl mx-auto px-8 text-center relative z-10 flex flex-col items-center justify-center flex-1 py-20">
+<blockquote class="text-2xl md:text-4xl lg:text-5xl font-body font-normal text-on-surface leading-snug mb-14">
+"Recomendo o servico do Well, atendimento de ponta. Ouviu muito bem as minhas dores e me trouxe exatamente a solucao que eu precisava. <span class="font-accent italic text-accent">Conhecimento profissional e pessoa incrivel. Recomendo 100%.</span>"
+</blockquote>
+<div class="flex flex-col items-center">
+<div class="w-20 h-20 rounded-full overflow-hidden mb-5 border-2 border-accent/10">
+<img alt="Julio Cesar" class="w-full h-full object-cover" src="pfp-juliocesar.png"/>
+</div>
+<h5 class="text-xl font-body font-normal">Julio Cesar</h5>
+<p class="text-sm text-outline uppercase font-mono tracking-widest">Diretor, Hunters Manpower</p>
+</div>
+</div>
+</section>
+<!-- Tabela Comparativa -->
+<section class="min-h-[80vh] md:min-h-screen flex flex-col bg-white">
+<div class="w-full max-w-[1600px] mx-auto px-8 md:px-16 lg:px-24 flex-1 flex flex-col justify-center py-16 md:py-20">
+<h2 class="reveal text-4xl md:text-5xl lg:text-6xl font-body font-normal text-on-surface leading-tight mb-20 text-center">
+                Compare suas <span class="font-accent italic font-normal text-accent">opções de fato.</span>
+</h2>
+<div class="reveal reveal-delay-1 overflow-x-auto no-scrollbar">
+<table class="w-full border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/30">
+<th class="py-6 md:py-7 w-[22%]"></th>
+<th class="py-6 md:py-7 px-6 w-[19.5%] text-center font-body font-medium text-on-surface text-base">
+<span class="inline-flex items-center justify-center gap-2">
+<img src="minilogo-maven.png" alt="Maven AI" class="h-5 w-auto"/>
+<span>Maven AI</span>
+</span>
+</th>
+<th class="py-6 md:py-7 px-6 w-[19.5%] text-left font-mono text-xs tracking-[0.2em] uppercase text-on-surface-variant">Freelancers ❌</th>
+<th class="py-6 md:py-7 px-6 w-[19.5%] text-left font-mono text-xs tracking-[0.2em] uppercase text-on-surface-variant">In-House ❌</th>
+<th class="py-6 md:py-7 px-6 w-[19.5%] text-left font-mono text-xs tracking-[0.2em] uppercase text-on-surface-variant">Outras Agências ❌</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-outline-variant/20">
+<td class="py-7 md:py-8 text-center font-body font-semibold text-on-surface">Tempo para contratar</td>
+<td class="py-7 md:py-8 px-6 text-center"><span class="inline-block bg-accent text-white text-sm font-medium px-4 py-1.5 rounded-full">Poucas Horas</span></td>
+<td class="py-7 md:py-8 px-6 text-sm text-on-surface-variant">5-7 dias</td>
+<td class="py-7 md:py-8 px-6 text-sm text-on-surface-variant">Meses</td>
+<td class="py-7 md:py-8 px-6 text-sm text-on-surface-variant">2-3 Semanas</td>
+</tr>
+<tr class="border-b border-outline-variant/20">
+<td class="py-7 md:py-8 text-center font-body font-semibold text-on-surface">Nível de Experiência</td>
+<td class="py-7 md:py-8 px-6 text-center"><span class="inline-block bg-accent text-white text-sm font-medium px-4 py-1.5 rounded-full">Nível Sênior</span></td>
+<td class="py-7 md:py-8 px-6 text-sm text-on-surface-variant">Iniciante ou Nível Junior</td>
+<td class="py-7 md:py-8 px-6 text-sm text-on-surface-variant">Boa (Cruze os dedos)</td>
+<td class="py-7 md:py-8 px-6 text-sm text-on-surface-variant">Confie na Sorte</td>
+</tr>
+<tr class="border-b border-outline-variant/20">
+<td class="py-7 md:py-8 text-center font-body font-semibold text-on-surface">Comunicação</td>
+<td class="py-7 md:py-8 px-6 text-center"><span class="inline-block bg-accent text-white text-sm font-medium px-4 py-1.5 rounded-full">Diária</span></td>
+<td class="py-7 md:py-8 px-6 text-sm text-on-surface-variant">Inexistente</td>
+<td class="py-7 md:py-8 px-6 text-sm text-on-surface-variant">Muitas falhas</td>
+<td class="py-7 md:py-8 px-6 text-sm text-on-surface-variant">Fantasma</td>
+</tr>
+<tr class="border-b border-outline-variant/20">
+<td class="py-7 md:py-8 text-center font-body font-semibold text-on-surface">Primeira Entrega</td>
+<td class="py-7 md:py-8 px-6 text-center"><span class="inline-block bg-accent text-white text-sm font-medium px-4 py-1.5 rounded-full">2-3 dias</span></td>
+<td class="py-7 md:py-8 px-6 text-sm text-on-surface-variant">Várias Semanas</td>
+<td class="py-7 md:py-8 px-6 text-sm text-on-surface-variant">6-7 Semanas</td>
+<td class="py-7 md:py-8 px-6 text-sm text-on-surface-variant">2-3 Meses</td>
+</tr>
+<tr>
+<td class="py-7 md:py-8 text-center font-body font-semibold text-on-surface">Rescisão</td>
+<td class="py-7 md:py-8 px-6 text-center"><span class="inline-block bg-accent text-white text-sm font-medium px-4 py-1.5 rounded-full">Um clique + 0 R$</span></td>
+<td class="py-7 md:py-8 px-6 text-sm text-on-surface-variant">Demorada</td>
+<td class="py-7 md:py-8 px-6 text-sm text-on-surface-variant">Pesadelo + Dores de Cabeça</td>
+<td class="py-7 md:py-8 px-6 text-sm text-on-surface-variant">Demorada</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Como Funciona Section -->
+<section id="metodologia" class="min-h-[80vh] md:min-h-screen flex flex-col bg-surface">
+<div class="max-w-7xl mx-auto px-6 md:px-8 flex-1 flex flex-col justify-center py-16 md:py-20">
+<div class="reveal flex items-center gap-3 mb-12">
+<span class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-base">settings</span>
+</span>
+<span class="text-sm font-mono tracking-[0.15em] uppercase text-on-surface-variant">Como Funciona</span>
+</div>
+<h2 class="reveal reveal-delay-1 text-4xl md:text-5xl lg:text-6xl font-body font-normal text-on-surface leading-[1.12] mb-20">
+Da primeira call ao <span class="font-accent italic text-accent">lançamento.</span>
+</h2>
+<div class="reveal reveal-delay-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+<!-- Step 1 -->
+<div class="bg-surface-container-low rounded-[22px] p-8 md:p-10 hover:-translate-y-1 transition-transform duration-300">
+<span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent text-white text-base font-mono font-semibold mb-6">1</span>
+<h4 class="font-body font-semibold text-on-surface text-lg mb-4">Auditoria de Funil</h4>
+<p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Uma sessão gratuita de 30 minutos onde auditamos seu funil, identificamos gargalos e mapeamos exatamente onde a IA pode fazer a diferença.</p>
+</div>
+<!-- Step 2 -->
+<div class="bg-surface-container-low rounded-[22px] p-8 md:p-10 hover:-translate-y-1 transition-transform duration-300">
+<span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent text-white text-base font-mono font-semibold mb-6">2</span>
+<h4 class="font-body font-semibold text-on-surface text-lg mb-4">Proposta</h4>
+<p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Entregamos um escopo claro, cronograma e preço fixo. Sem surpresas, sem cobrança por hora. Você sabe exatamente o que está contratando.</p>
+</div>
+<!-- Step 3 -->
+<div class="bg-surface-container-low rounded-[22px] p-8 md:p-10 hover:-translate-y-1 transition-transform duration-300">
+<span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent text-white text-base font-mono font-semibold mb-6">3</span>
+<h4 class="font-body font-semibold text-on-surface text-lg mb-4">Projeto</h4>
+<p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Nosso time constrói, testa e implementa seus sistemas. Você recebe atualizações semanais e um produto funcionando — não um deck cheio de promessas.</p>
+</div>
+<!-- Step 4 -->
+<div class="bg-surface-container-low rounded-[22px] p-8 md:p-10 hover:-translate-y-1 transition-transform duration-300">
+<span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent text-white text-base font-mono font-semibold mb-6">4</span>
+<h4 class="font-body font-semibold text-on-surface text-lg mb-4">Gestão Contínua</h4>
+<p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Retainer opcional para monitoramento, otimização e iteração. A maioria dos clientes vê retornos compostos ao longo do tempo.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Final -->
+<section class="min-h-[60vh] flex flex-col relative overflow-hidden" style="background: linear-gradient(135deg, #6baac4 0%, #4d8fb0 35%, #3a7a9e 65%, #2b6585 100%);">
+<!-- Abstract blurred blobs for depth -->
+<div class="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full pointer-events-none" style="background: radial-gradient(circle, rgba(107,170,196,0.4) 0%, transparent 70%); filter: blur(80px);"></div>
+<div class="absolute bottom-[-30%] right-[-5%] w-[500px] h-[500px] rounded-full pointer-events-none" style="background: radial-gradient(circle, rgba(43,101,133,0.5) 0%, transparent 70%); filter: blur(90px);"></div>
+<div class="reveal max-w-4xl mx-auto px-6 md:px-8 text-center relative z-10 flex-1 flex flex-col items-center justify-center py-16">
+<h2 class="text-4xl md:text-5xl lg:text-6xl font-body font-normal text-white leading-tight mb-12">
+                Sua operação pode <br/>
+<span class="font-accent italic font-normal text-white">rodar sem você.</span>
+</h2>
+<button onclick="openLeadForm()" class="bg-white text-black px-10 py-5 rounded-full text-lg font-medium hover:opacity-90 transition-opacity">
+                Falar com um especialista
+            </button>
+<p class="mt-8 text-white/60 text-base font-mono tracking-widest uppercase">Agenda limitada para novos parceiros</p>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-white min-h-screen flex flex-col">
+<!-- Top: CTA (left) + Nav Columns (right) side by side -->
+<div class="flex-1 max-w-7xl mx-auto px-6 md:px-8 py-20 w-full flex flex-col justify-end">
+<div class="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-20">
+<!-- Left: CTA (3/5 = 60%) -->
+<div class="lg:col-span-3 flex flex-col justify-center">
+<span class="text-sm font-mono tracking-[0.15em] uppercase text-on-surface-variant mb-6 block">Consultoria Gratuita</span>
+<h3 class="text-4xl md:text-5xl font-body font-normal text-on-surface leading-snug mb-10">Agende uma consultoria gratuita de IA com um dos nossos especialistas.</h3>
+<div>
+<a href="javascript:void(0)" onclick="openLeadForm()" class="group inline-flex items-center gap-3 border border-on-surface/30 rounded-full px-8 py-4 text-base font-medium text-on-surface hover:bg-on-surface hover:text-white transition-all duration-300">
+Agendar minha sessão gratuita
+<span class="inline-flex items-center justify-center w-8 h-8 rounded-full border border-on-surface/30 group-hover:border-white/30 transition-colors">
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</span>
+</a>
+</div>
+</div>
+<!-- Right: Navigation Columns (2/5 = 40%) -->
+<div class="lg:col-span-2 grid grid-cols-3 gap-8">
+<div>
+<h6 class="text-sm font-mono tracking-[0.15em] uppercase text-on-surface-variant mb-6">Redes Sociais</h6>
+<ul class="space-y-4">
+<li><a class="text-base text-on-surface-variant hover:text-on-surface transition-colors" href="https://www.youtube.com/@WellPiresAI" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+<li><a class="text-base text-on-surface-variant hover:text-on-surface transition-colors" href="https://www.instagram.com/wellpires.ai/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+<li><a class="text-base text-on-surface-variant hover:text-on-surface transition-colors" href="https://www.linkedin.com/in/well-pires/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+</ul>
+</div>
+<div>
+<h6 class="text-sm font-mono tracking-[0.15em] uppercase text-on-surface-variant mb-6">Recursos</h6>
+<ul class="space-y-4">
+<li><a class="text-base text-on-surface-variant hover:text-on-surface transition-colors" href="#cases">Cases de Sucesso</a></li>
+<li><a class="text-base text-on-surface-variant hover:text-on-surface transition-colors" href="#metodologia">Metodologia</a></li>
+</ul>
+</div>
+<div>
+<h6 class="text-sm font-mono tracking-[0.15em] uppercase text-on-surface-variant mb-6">Empresa</h6>
+<ul class="space-y-4">
+<li><a class="text-base text-on-surface-variant hover:text-on-surface transition-colors" href="#">Sobre</a></li>
+<li><a class="text-base text-on-surface-variant hover:text-on-surface transition-colors" href="#">Contato</a></li>
+<li><a class="text-base text-on-surface-variant hover:text-on-surface transition-colors" href="javascript:void(0)" onclick="openLeadForm()">Falar com Especialista</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Bottom Bar -->
+<div class="flex-1 max-w-7xl mx-auto px-6 md:px-8 w-full flex flex-col justify-end pb-8">
+<!-- Logo -->
+<a href="#" class="inline-flex items-center gap-3 mb-10">
+<img src="minilogo-maven.png" alt="Maven AI" class="h-10 w-auto"/>
+<span class="text-3xl font-body font-normal text-on-surface tracking-tight">Maven AI</span>
+</a>
+<!-- Legal row -->
+<div class="flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-6">
+<a href="#" class="text-on-surface-variant text-sm hover:text-on-surface transition-colors">Privacy Policy</a>
+<a href="#" class="text-on-surface-variant text-sm hover:text-on-surface transition-colors">Terms of Service</a>
+</div>
+<p class="text-on-surface-variant text-sm">&copy; 2026 Maven AI Solutions. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script>
+(function() {
+    const nav = document.getElementById('main-nav');
+    const logo = document.getElementById('nav-logo');
+    const logoText = logo.querySelector('span');
+    const links = document.querySelectorAll('.nav-link');
+    const activeLink = document.querySelector('.nav-link-active');
+    const cta = document.getElementById('nav-cta');
+    const hero = document.querySelector('header');
+
+    function setTransparent() {
+        nav.classList.remove('opacity-0', 'pointer-events-none');
+    }
+
+    function setSolid() {
+        nav.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                setTransparent();
+            } else {
+                setSolid();
+            }
+        });
+    }, { threshold: 0.05 });
+
+    observer.observe(hero);
+})();
+
+var projectData = [
+    { video: 'https://www.youtube.com/embed/Fl7cjXQfyRM', category: 'E-commerce', title: 'Agente IA de Vendas para Ecommerce', desc: 'Nosso agente de IA automatiza a qualificação de leads, recomenda produtos e finaliza vendas diretamente no WhatsApp. Tudo automático, aumentando a conversão em até 30%.', badge: 'Automação verificada e em produção' },
+    { video: 'https://www.youtube.com/embed/pcS5JaCzyuM', category: 'Energia', title: 'IA para Vender Transformadores de Energia no WhatsApp', desc: 'Sistema inteligente que qualifica demandas técnicas complexas e conduz o cliente até o fechamento via WhatsApp, sem intervenção humana.', badge: 'Case em operação' },
+    { video: 'https://www.youtube.com/embed/O7Gh0g735U4', category: 'Vendas', title: 'Estrutura de Vendas 100% Automatizada + App com IA', desc: 'Funil de vendas completo orquestrado por IA — do primeiro contato ao pós-venda — com app mobile integrado para gestão em tempo real.', badge: 'Stack proprietária' },
+    { video: 'https://www.youtube.com/embed/4zZ8dnQO3rA', category: 'Varejo', title: 'Agente IA para Loja de Vinhos', desc: 'Sommelier virtual que recomenda rótulos, responde dúvidas e fecha pedidos automaticamente com base no perfil e preferências do cliente.', badge: 'IA generativa aplicada' }
+];
+
+function switchProject(index) {
+    document.getElementById('project-video').src = projectData[index].video;
+    document.getElementById('project-category').textContent = projectData[index].category;
+    document.getElementById('project-title').textContent = projectData[index].title;
+    document.getElementById('project-desc').textContent = projectData[index].desc;
+    document.getElementById('project-badge').textContent = projectData[index].badge;
+
+    document.querySelectorAll('.project-tab').forEach(function(tab, i) {
+        var h4 = tab.querySelector('h4');
+        if (i === index) {
+            tab.classList.add('project-tab-active');
+            tab.classList.remove('border-transparent');
+            tab.style.background = '';
+            h4.style.color = '';
+        } else {
+            tab.classList.remove('project-tab-active');
+            tab.classList.add('border-transparent');
+            tab.style.background = '';
+            h4.style.color = '#424656';
+        }
+    });
+}
+
+// Scroll-reveal animation
+(function() {
+    var reveals = document.querySelectorAll('.reveal');
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(function(el) {
+        observer.observe(el);
+    });
+})();
+</script>
+
+<!-- Lead Form Modal -->
+<div id="lead-overlay" class="lead-overlay fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm px-4" onclick="if(event.target===this)closeLeadForm()">
+<div class="lead-panel bg-white rounded-[26px] w-full max-w-xl max-h-[92vh] overflow-y-auto shadow-2xl relative">
+<!-- Close -->
+<button onclick="closeLeadForm()" class="absolute top-5 right-5 z-10 w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-2xl">close</span>
+</button>
+<!-- Header -->
+<div class="px-8 pt-10 pb-6 border-b border-outline-variant/30">
+<div class="flex items-center gap-2.5 mb-6">
+<img src="minilogo-maven.png" alt="Maven AI" class="h-8 w-auto"/>
+<span class="text-xl font-body font-normal tracking-tighter text-on-surface">Maven AI</span>
+</div>
+<h2 class="text-2xl md:text-3xl font-body font-normal text-on-surface leading-snug">
+Agende uma Consultoria <span class="font-accent italic text-accent">Gratuita de IA.</span>
+</h2>
+</div>
+<!-- Form -->
+<form id="lead-form" class="px-8 py-8 space-y-5" onsubmit="return handleLeadSubmit(event)">
+<div>
+<label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Nome</label>
+<input type="text" name="nome" class="lead-input" placeholder="Seu nome completo" required/>
+</div>
+<div>
+<label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Nome da Empresa</label>
+<input type="text" name="empresa" class="lead-input" placeholder="Ex: Acme Corp" required/>
+</div>
+<div>
+<label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Cargo na Empresa</label>
+<input type="text" name="cargo" class="lead-input" placeholder="Ex: CEO, Diretor de Vendas" required/>
+</div>
+<div>
+<label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Website da Empresa</label>
+<input type="url" name="website" class="lead-input" placeholder="URL do site, LinkedIn ou Instagram" required/>
+</div>
+<div>
+<label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Faturamento Mensal</label>
+<select name="faturamento" class="lead-select" required>
+<option value="" disabled selected>Selecione uma faixa</option>
+<option value="0-50k">R$ 0 — R$ 50 mil</option>
+<option value="50-100k">R$ 50 mil — R$ 100 mil</option>
+<option value="100-200k">R$ 100 mil — R$ 200 mil</option>
+<option value="200-500k">R$ 200 mil — R$ 500 mil</option>
+<option value="500k+">R$ 500 mil +</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Descreva o Projeto</label>
+<textarea name="projeto" class="lead-textarea" placeholder="Conte-nos sobre o projeto que você tem em mente..." required></textarea>
+</div>
+<button type="submit" class="w-full bg-accent text-white py-4 rounded-full text-base font-medium hover:bg-accent-dark hover:scale-[1.01] transition-all duration-300 flex items-center justify-center gap-2 mt-2">
+Agendar Consultoria
+<span class="material-symbols-outlined text-xl">arrow_forward</span>
+</button>
+<p class="text-xs text-on-surface-variant text-center pt-1">Responderemos em até 24 horas.</p>
+</form>
+<!-- Success state -->
+<div id="lead-success" class="hidden px-8 py-16 text-center">
+<span class="material-symbols-outlined text-accent text-6xl mb-6">check_circle</span>
+<h3 class="text-2xl font-body font-medium text-on-surface mb-3">Obrigado por preencher!</h3>
+<p class="text-base text-on-surface-variant mb-8">Nossa IA entrará em contato em breve pelo seu WhatsApp.</p>
+<button onclick="closeLeadForm()" class="inline-flex items-center gap-2 text-accent font-medium hover:underline">
+Voltar ao site
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+
+<script>
+function openLeadForm() {
+    document.getElementById('lead-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+function closeLeadForm() {
+    document.getElementById('lead-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+    // Reset after animation
+    setTimeout(function() {
+        document.getElementById('lead-form').classList.remove('hidden');
+        document.getElementById('lead-form').reset();
+        document.getElementById('lead-success').classList.add('hidden');
+    }, 400);
+}
+function handleLeadSubmit(e) {
+    e.preventDefault();
+    // Collect form data
+    var form = document.getElementById('lead-form');
+    var fd = new FormData(form);
+    var data = {};
+    fd.forEach(function(value, key) { data[key] = value; });
+    // Fire webhook in background
+    fetch('https://connector.mavenlabs.com.br/webhook/form-mavenai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    }).catch(function(err) { console.error('Webhook error:', err); });
+    // Show success state immediately
+    form.classList.add('hidden');
+    document.getElementById('lead-success').classList.remove('hidden');
+    return false;
+}
+// Close on Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLeadForm();
+});
+</script>
+</body></html>
