@@ -221,7 +221,7 @@
             background: #ffffff;
             outline: none;
             resize: vertical;
-            min-height: 110px;
+            min-height: 88px;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
         .lead-textarea:focus {
@@ -690,7 +690,7 @@ function switchProject(index) {
 <span class="material-symbols-outlined text-2xl">close</span>
 </button>
 <!-- Header -->
-<div class="px-8 pt-10 pb-6 border-b border-outline-variant/30">
+<div class="px-8 pt-8 pb-5 border-b border-outline-variant/30">
 <div class="flex items-center gap-2.5 mb-6">
 <img src="minilogo-maven.png" alt="Maven AI" class="h-8 w-auto"/>
 <span class="text-xl font-body font-normal tracking-tighter text-on-surface">Maven AI</span>
@@ -700,7 +700,8 @@ Agende uma Consultoria <span class="font-accent italic text-accent">Gratuita de 
 </h2>
 </div>
 <!-- Form -->
-<form id="lead-form" class="px-8 py-8 space-y-5" onsubmit="return handleLeadSubmit(event)">
+<form id="lead-form" class="px-8 py-6 space-y-4" onsubmit="return handleLeadSubmit(event)">
+<div class="grid md:grid-cols-2 gap-4">
 <div>
 <label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Nome</label>
 <input type="text" name="nome" class="lead-input" placeholder="Seu nome completo" required/>
@@ -709,6 +710,8 @@ Agende uma Consultoria <span class="font-accent italic text-accent">Gratuita de 
 <label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">E-mail</label>
 <input type="email" name="email" class="lead-input" placeholder="seu@email.com" required/>
 </div>
+</div>
+<div class="grid md:grid-cols-2 gap-4">
 <div>
 <label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Telefone / WhatsApp</label>
 <input type="tel" name="telefone" class="lead-input" placeholder="(11) 99999-9999" required/>
@@ -717,30 +720,12 @@ Agende uma Consultoria <span class="font-accent italic text-accent">Gratuita de 
 <label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Nome da Empresa</label>
 <input type="text" name="empresa" class="lead-input" placeholder="Ex: Acme Corp" required/>
 </div>
-<div>
-<label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Cargo na Empresa</label>
-<input type="text" name="cargo" class="lead-input" placeholder="Ex: CEO, Diretor de Vendas" required/>
-</div>
-<div>
-<label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Website da Empresa</label>
-<input type="url" name="website" class="lead-input" placeholder="URL do site, LinkedIn ou Instagram" required/>
-</div>
-<div>
-<label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Faturamento Mensal</label>
-<select name="faturamento" class="lead-select" required>
-<option value="" disabled selected>Selecione uma faixa</option>
-<option value="0-50k">R$ 0 — R$ 50 mil</option>
-<option value="50-100k">R$ 50 mil — R$ 100 mil</option>
-<option value="100-200k">R$ 100 mil — R$ 200 mil</option>
-<option value="200-500k">R$ 200 mil — R$ 500 mil</option>
-<option value="500k+">R$ 500 mil +</option>
-</select>
 </div>
 <div>
 <label class="block text-sm font-mono tracking-[0.08em] uppercase text-on-surface-variant mb-2">Descreva o Projeto</label>
 <textarea name="projeto" class="lead-textarea" placeholder="Conte-nos sobre o projeto que você tem em mente..." required></textarea>
 </div>
-<button type="submit" class="w-full bg-accent text-white py-4 rounded-full text-base font-medium hover:bg-accent-dark hover:scale-[1.01] transition-all duration-300 flex items-center justify-center gap-2 mt-2">
+<button type="submit" class="w-full bg-accent text-white py-3.5 rounded-full text-base font-medium hover:bg-accent-dark hover:scale-[1.01] transition-all duration-300 flex items-center justify-center gap-2 mt-1">
 Agendar Consultoria
 <span class="material-symbols-outlined text-xl">arrow_forward</span>
 </button>
